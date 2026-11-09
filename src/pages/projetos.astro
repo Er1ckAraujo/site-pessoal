@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
 ---
 
 <Base title="Projetos" description="Projetos de Erick Araújo.">
@@ -12,7 +13,7 @@ import Base from '../layouts/Base.astro';
   <section class="block">
     <div>
       <span class="label">2026</span>
-      <h2>Site pessoal</h2>
+      <h2><a href={`${site.github}/site-pessoal`} rel="noopener" target="_blank">Site pessoal</a></h2>
     </div>
     <div class="project">
       <p class="lead">
@@ -52,5 +53,13 @@ import Base from '../layouts/Base.astro';
   .stack {
     margin: 1.5rem 0 0;
     font-size: 0.85rem;
+  }
+
+  h2 a {
+    text-decoration: none;
+  }
+
+  h2 a:hover {
+    color: var(--green);
   }
 </style>
