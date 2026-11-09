@@ -1,0 +1,62 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts, formatDate } from '../../data/posts';
+
+export function getStaticPaths() {
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = post;
+---
+
+<Base title={post.title} description={post.description}>
+  <article>
+    <header class="page-head">
+      <span class="label"><a href="/blog">Blog</a> · {formatDate(post.date)}</span>
+      <h1>{post.title}</h1>
+      {post.description && <p class="intro">{post.description}</p>}
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>
+
+<style>
+  .label a {
+    text-decoration: none;
+  }
+
+  .prose {
+    max-width: 42rem;
+    padding: 3.5rem 0 5rem;
+  }
+
+  .prose :global(h2) {
+    font-size: 1.8rem;
+    margin: 2.5rem 0 0.75rem;
+  }
+
+  .prose :global(h3) {
+    font-size: 1.35rem;
+    font-weight: 400;
+    margin: 2rem 0 0.5rem;
+  }
+
+  .prose :global(img) {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .prose :global(pre) {
+    overflow-x: auto;
+    padding: 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+  }
+
+  .prose :global(a) {
+    color: var(--green);
+  }
+</style>

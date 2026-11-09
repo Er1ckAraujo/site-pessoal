@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://erickaraujodados.com.br/sitemap-index.xml

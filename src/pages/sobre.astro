@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import Trajetoria from '../components/Trajetoria.astro';
+import { site } from '../data/site';
+
+// Fonte: currículo e LinkedIn.
+const skills = [
+  { area: 'Engenharia de dados', items: ['ETL/ELT', 'Pipelines batch', 'Modelagem dimensional', 'Camadas Silver/Gold', 'Data quality', 'Observabilidade'] },
+  { area: 'Plataforma', items: ['Databricks', 'Apache Spark', 'PySpark', 'Delta Lake', 'Delta Live Tables', 'Workflows'] },
+  { area: 'Linguagens e análise', items: ['Python', 'SQL', 'pandas', 'NumPy', 'R', 'Power BI', 'DAX', 'Estatística'] },
+  { area: 'Cloud e ferramentas', items: ['AWS S3', 'Git', 'Databricks CLI', 'APIs', 'DuckDB', 'SQLite'] },
+];
+---
+
+<Base title="Sobre" description={`Trajetória, competências e formação de ${site.name}.`}>
+  <section class="page-head">
+    <span class="label">Sobre</span>
+    <h1>Trajetória</h1>
+    <p class="intro">
+      Sou bacharel em Estatística pela UFOP e trabalho com dados desde 2021. Comecei com análise estatística e
+      indicadores, passei pelo time de MIS e hoje atuo como engenheiro de dados no setor financeiro.
+    </p>
+  </section>
+
+  <section class="block">
+    <div>
+      <span class="label">01 · Experiência</span>
+      <h2>Da estatística à engenharia de dados.</h2>
+    </div>
+    <Trajetoria />
+  </section>
+
+  <section class="block">
+    <div>
+      <span class="label">02 · Competências</span>
+      <h2>Com o que trabalho.</h2>
+    </div>
+    <div>
+      <dl class="skills">
+        {
+          skills.map((group) => (
+            <div>
+              <dt>{group.area}</dt>
+              <dd>{group.items.join(' · ')}</dd>
+            </div>
+          ))
+        }
+      </dl>
+      <p class="muted domains">Domínios: crédito, conciliação financeira, receitas e meios de pagamento.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div>
+      <span class="label">03 · Formação</span>
+      <h2>Onde aprendi.</h2>
+    </div>
+    <div class="degree">
+      <h3>Bacharelado em Estatística</h3>
+      <p class="muted">Universidade Federal de Ouro Preto (UFOP) · 2017 – 2022</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .skills {
+    margin: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .skills div {
+    display: grid;
+    grid-template-columns: 14rem 1fr;
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .skills dt {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+  }
+
+  .skills dd {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .domains {
+    margin: 1.5rem 0 0;
+  }
+
+  .degree {
+    border-top: 1px solid var(--ink);
+    padding-top: 1.1rem;
+  }
+
+  .degree h3 {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin: 0 0 0.3rem;
+  }
+
+  .degree p {
+    margin: 0;
+  }
+
+  @media (max-width: 52rem) {
+    .skills div {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+</style>

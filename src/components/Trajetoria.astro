@@ -1,0 +1,237 @@
+---
+// Trajetória em gráfico de Gantt: cada barra é proporcional ao tempo no cargo.
+// Clicar no cargo abre a descrição (<details> nativo: funciona sem JavaScript e pelo teclado).
+import { carreira } from '../data/carreira';
+
+const firstYear = 2019;
+const now = new Date();
+const lastYear = now.getFullYear();
+const totalMonths = (lastYear - firstYear + 1) * 12;
+const index = (ym: string) => {
+  const [y, m] = ym.split('-').map(Number);
+  return (y - firstYear) * 12 + (m - 1);
+};
+const nowIndex = (lastYear - firstYear) * 12 + now.getMonth() + 1;
+const years = Array.from({ length: lastYear - firstYear + 1 }, (_, i) => firstYear + i);
+
+const rows = carreira.map((c) => {
+  const from = index(c.start);
+  const to = c.end ? index(c.end) + 1 : nowIndex;
+  return {
+    ...c,
+    current: !c.end,
+    left: ((from / totalMonths) * 100).toFixed(2),
+    width: (((to - from) / totalMonths) * 100).toFixed(2),
+  };
+});
+---
+
+<div class="gantt" style={`--years: ${years.length}`}>
+  <div class="axis">
+    <span></span>
+    <div class="ticks">{years.map((y) => <span>{y}</span>)}</div>
+  </div>
+  {
+    rows.map((r) => (
+      <details class="row">
+        <summary>
+          <div class="role">
+            <span class="nm">{r.role}</span>
+            <span class="org">
+              {r.org} · {r.period}
+            </span>
+          </div>
+          <div class="track">
+            <div class:list={['bar', { now: r.current }]} style={`left:${r.left}%;width:${r.width}%`} />
+          </div>
+          <span class="toggle" aria-hidden="true">
+            +
+          </span>
+        </summary>
+        <p class="desc">{r.text}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .axis,
+  summary {
+    display: grid;
+    grid-template-columns: 14rem 1fr 2rem;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .axis {
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .ticks {
+    display: grid;
+    grid-template-columns: repeat(var(--years), 1fr);
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ticks span {
+    border-left: 1px solid var(--rule);
+    padding-left: 0.4rem;
+  }
+
+  .row {
+    padding: 1.15rem 0.75rem;
+    margin: 0 -0.75rem;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.2s;
+  }
+
+  .row:hover,
+  .row[open] {
+    background: var(--hover);
+  }
+
+  summary {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 4px;
+  }
+
+  .role {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    line-height: 1.25;
+  }
+
+  .nm {
+    text-decoration: underline;
+    text-decoration-color: var(--underline);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25em;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+
+  summary:hover .nm,
+  .row[open] .nm {
+    color: var(--green);
+    text-decoration-color: var(--green);
+  }
+
+  .org {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+
+  .track {
+    position: relative;
+    height: 8px;
+    background: repeating-linear-gradient(to right, var(--rule) 0 1px, transparent 1px calc(100% / var(--years)));
+  }
+
+  .bar {
+    position: absolute;
+    top: 0;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--bar);
+  }
+
+  .bar.now {
+    background: var(--green);
+  }
+
+  .bar.now::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: -4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--green);
+    box-sizing: border-box;
+  }
+
+  .toggle {
+    justify-self: end;
+    display: grid;
+    place-items: center;
+    width: 1.9rem;
+    height: 1.9rem;
+    border: 1.5px solid var(--green);
+    border-radius: 50%;
+    font-size: 1.15rem;
+    line-height: 1;
+    color: var(--green);
+    transition: transform 0.2s, background 0.2s, color 0.2s;
+  }
+
+  summary:hover .toggle,
+  .row[open] .toggle {
+    background: var(--green);
+    color: var(--paper);
+  }
+
+  .row[open] .toggle {
+    transform: rotate(45deg);
+  }
+
+  .desc {
+    margin: 0.9rem 0 0.2rem;
+    max-width: 40rem;
+    font-size: 0.95rem;
+    color: var(--muted);
+    animation: abrir 0.25s ease-out;
+  }
+
+  @keyframes abrir {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (max-width: 52rem) {
+    .axis,
+    summary {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .axis > span:first-child {
+      display: none;
+    }
+
+    .ticks {
+      font-size: 0.65rem;
+    }
+
+    .row {
+      position: relative;
+    }
+
+    .toggle {
+      position: absolute;
+      right: 0.75rem;
+      top: 1rem;
+    }
+  }
+</style>

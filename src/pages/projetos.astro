@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Projetos" description="Projetos de Erick Araújo.">
+  <section class="page-head">
+    <span class="label">Projetos</span>
+    <h1>Projetos</h1>
+    <p class="intro">O que eu construo fora do trabalho.</p>
+  </section>
+
+  <section class="block">
+    <div>
+      <span class="label">2026</span>
+      <h2>Site pessoal</h2>
+    </div>
+    <div class="project">
+      <p class="lead">
+        Site e e-mail com domínio próprio, montados do zero e sem custo além do domínio. Cada etapa foi conferida antes
+        da seguinte.
+      </p>
+      <ul class="facts">
+        <li>Site feito por mim e publicado em hospedagem gratuita.</li>
+        <li>E-mail com o meu domínio, configurado para ser reconhecido como legítimo pelos provedores e não cair no spam.</li>
+        <li>Domínio protegido para que os visitantes cheguem sempre ao site verdadeiro.</li>
+        <li>Na troca de provedor, as configurações do e-mail foram comparadas uma a uma antes da mudança, e o e-mail não parou de funcionar.</li>
+      </ul>
+      <p class="stack muted">Astro · Cloudflare · DNS · DNSSEC · SPF · DKIM · DMARC</p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .lead {
+    font-size: 1.15rem;
+    margin: 0 0 1.5rem;
+  }
+
+  .facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .facts li {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+    color: var(--muted);
+  }
+
+  .stack {
+    margin: 1.5rem 0 0;
+    font-size: 0.85rem;
+  }
+</style>

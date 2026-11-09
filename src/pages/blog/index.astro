@@ -1,0 +1,89 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts, formatDate } from '../../data/posts';
+---
+
+<Base title="Blog" description="Artigos de Erick Araújo sobre dados.">
+  <section class="page-head">
+    <span class="label">Blog</span>
+    <h1>Blog</h1>
+    <p class="intro">Artigos sobre dados.</p>
+  </section>
+
+  <section class="list">
+    {
+      posts.length === 0 ? (
+        <p class="muted empty">Ainda não há artigos publicados.</p>
+      ) : (
+        <ul>
+          {posts.map((post) => (
+            <li>
+              <span class="date">{formatDate(post.date)}</span>
+              <div>
+                <h2>
+                  <a href={`/blog/${post.slug}`}>{post.title}</a>
+                </h2>
+                {post.description && <p class="muted">{post.description}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</Base>
+
+<style>
+  .list {
+    padding: 4rem 0 5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .empty {
+    margin: 0;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  li {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .date {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    margin: 0 0 0.4rem;
+  }
+
+  h2 a {
+    text-decoration: none;
+  }
+
+  h2 a:hover {
+    color: var(--green);
+  }
+
+  li p {
+    margin: 0;
+  }
+
+  @media (max-width: 52rem) {
+    li {
+      grid-template-columns: 1fr;
+      gap: 0.3rem;
+    }
+  }
+</style>

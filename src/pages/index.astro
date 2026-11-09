@@ -1,0 +1,184 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Trajetoria from '../components/Trajetoria.astro';
+import foto from '../assets/foto-perfil.png';
+import { posts, formatDate } from '../data/posts';
+
+const recent = posts.slice(0, 3);
+---
+
+<Base>
+  <section class="hero">
+    <div>
+      <span class="label">Ouro Preto · MG · em dados desde 2021</span>
+      <h1>
+        <span class="name">Erick Araújo</span>
+        <span class="role-line">engenheiro de dados <em>e</em> estatístico.</span>
+      </h1>
+      <p class="intro">
+        Cinco anos de experiência trabalhando com dados. Minha carreira tem sido construída com forte atuação no setor
+        financeiro. Eu construo fluxos de dados, automações, indicadores e a conciliação de diferentes fontes de dados, usando
+        principalmente Databricks, PySpark, SQL e Python.
+      </p>
+      <a class="cta" href="/contato">Vamos conversar →</a>
+    </div>
+    <figure class="photo">
+      <Image src={foto} alt="Erick Araújo" widths={[400, 800]} sizes="(max-width: 52rem) 20rem, 30vw" loading="eager" />
+    </figure>
+  </section>
+
+  <section class="block">
+    <div>
+      <span class="label">01 · Trajetória</span>
+      <h2>Da estatística à engenharia de dados.</h2>
+    </div>
+    <Trajetoria />
+  </section>
+
+  <section class="block">
+    <div>
+      <span class="label">02 · Projetos</span>
+      <h2>O que construo fora do trabalho.</h2>
+    </div>
+    <div class="project">
+      <div>
+        <span class="label">2026</span>
+        <h3>Site pessoal</h3>
+      </div>
+      <div>
+        <p class="muted">
+          Site e e-mail com domínio próprio, montados do zero. Configurei o e-mail para ser reconhecido como legítimo
+          pelos provedores e não cair no spam, e protegi o domínio para que os visitantes cheguem ao site verdadeiro.
+          Cada etapa foi conferida antes da seguinte.
+        </p>
+        <p><a class="more" href="/projetos">Ver projeto</a></p>
+      </div>
+    </div>
+  </section>
+
+  {
+    recent.length > 0 && (
+      <section class="block">
+        <div>
+          <span class="label">03 · Blog</span>
+          <h2>Artigos recentes.</h2>
+        </div>
+        <ul class="posts">
+          {recent.map((post) => (
+            <li>
+              <a href={`/blog/${post.slug}`}>{post.title}</a>
+              <span class="muted">{formatDate(post.date)}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 4rem;
+    align-items: end;
+    padding: 5rem 0 6rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h1 {
+    font-size: clamp(3rem, 7vw, 5.6rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    margin: 1.25rem 0 2rem;
+  }
+
+  .name {
+    display: block;
+    font-weight: 400;
+  }
+
+  .role-line {
+    display: block;
+    color: var(--muted);
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--green);
+  }
+
+  .intro {
+    max-width: 32rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .photo {
+    margin: 0;
+  }
+
+  .photo :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 25%;
+    border-radius: 4px;
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .project {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .project h3 {
+    font-size: 1.8rem;
+    margin: 0.75rem 0 0;
+  }
+
+  .project p {
+    margin: 0 0 1rem;
+  }
+
+  .posts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--ink);
+  }
+
+  .posts li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .posts a {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    text-decoration: none;
+  }
+
+  @media (max-width: 52rem) {
+    .hero,
+    .project {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .hero {
+      padding: 3rem 0 4rem;
+    }
+
+    .photo {
+      max-width: 20rem;
+    }
+  }
+</style>
