@@ -15,7 +15,7 @@ export const carreira: Cargo[] = [
     org: 'Efí Bank',
     period: 'jan/2026 – hoje',
     start: '2026-01',
-    text: 'Construo e mantenho os fluxos de dados que levam os dados de arquivos brutos até tabelas prontas para análise e para a operação. Faço a modelagem das camadas, defino regras de qualidade e de manutenibilidade e documento cada tabela. Também conduzo migrações de fontes com validação entre ambientes, para que nada regrida. Transformo validações que levavam dias em operações que rodam em minutos. Os temas principais são conciliação financeira, receitas, crédito e meios de pagamento.',
+    text: 'Construo e mantenho os fluxos que levam os dados de arquivos brutos até tabelas prontas para análise e para a operação. Faço a modelagem das camadas, defino regras de qualidade e de manutenibilidade e documento cada tabela. Também conduzo migrações de fontes com validação entre ambientes, para que nada regrida. Transformo validações que levavam dias em operações que rodam em minutos. Os temas principais são conciliação financeira, receitas, crédito e meios de pagamento.',
   },
   {
     role: 'Analista de MIS e Sistemas de Crédito II',
