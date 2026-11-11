@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
 import Trajetoria from '../components/Trajetoria.astro';
 import foto from '../assets/foto-perfil.png';
 import { posts, formatDate } from '../data/posts';
@@ -44,7 +45,7 @@ const recent = posts.slice(0, 3);
     <div class="project">
       <div>
         <span class="label">2026</span>
-        <h3>Site pessoal</h3>
+        <h3><a class="link-title" href={`${site.github}/site-pessoal`} rel="noopener" target="_blank">Site pessoal</a></h3>
       </div>
       <div>
         <p class="muted">
@@ -52,7 +53,7 @@ const recent = posts.slice(0, 3);
           pelos provedores e não cair no spam, e protegi o domínio para que os visitantes cheguem ao site verdadeiro.
           Cada etapa foi conferida antes da seguinte.
         </p>
-        <p><a class="more" href="/projetos">Ver projeto</a></p>
+        <p><a class="more" href={`${site.github}/site-pessoal`} rel="noopener" target="_blank">Ver projeto</a></p>
       </div>
     </div>
   </section>

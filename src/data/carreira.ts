@@ -42,6 +42,14 @@ export const carreira: Cargo[] = [
     text: 'Atuei como consultor estatístico em formação, com foco em ciência de dados: analisava e interpretava dados para apoiar decisões de empresas, preparava bases, construía indicadores e apresentava os resultados. As ferramentas principais eram R, R Shiny e Excel.',
   },
   {
+    role: 'Assistente Administrativo',
+    org: 'CFC Sinal Verde',
+    period: 'jan – jun/2021',
+    start: '2021-01',
+    end: '2021-06',
+    text: 'Ainda na graduação, foi onde comecei a usar dados no dia a dia de um negócio pequeno. Organizei o controle de manutenção da frota, acompanhei quanto tempo cada peça durava até a troca e comparei o desempenho entre os veículos. Também montei relatórios financeiros gerenciais. Dentro da realidade do negócio, ajudei a autoescola a decidir um pouco mais com base em dados. Foi ali que apliquei, na prática, coisas que só fui entender de verdade anos depois.',
+  },
+  {
     role: 'Diretor de Projetos',
     org: 'Estatis Jr · UFOP',
     period: 'abr – nov/2019',
